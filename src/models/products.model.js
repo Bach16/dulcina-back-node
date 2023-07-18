@@ -3,6 +3,7 @@ module.exports = (sequelize) => {
   sequelize.define('product', {
     id:{
       type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
       allowNull: false,
       unique: true
@@ -14,19 +15,22 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.BLOB,
-      allowNull: false,      
     },
     status: {
         type: DataTypes.STRING,
         allowNull: false,
+        defaultValue: "active",
     },
-    times_sold: {
+    price: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    times_sold: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
     highlight_date: {
         type: DataTypes.DATE,
-        allowNull: false,
     }
   });
 };
