@@ -1,7 +1,7 @@
 const express = require("express");
 const productsController = require("../controllers/products.controller");
-
 const { Product } = require("../db");
+const { validProduct } = require("../middlewares/validProduct.middleware");
 
 const mockProducts = [
   {
@@ -19,6 +19,10 @@ const mockProducts = [
 ];
 
 const productRouter = express.Router();
+productRouter
+  .route("/:id")
+  .patch(validProduct, productsController.updateProduct)
+  .delete(validProduct, productsController.deleteProduct);
 
 productRouter
   .route("/")

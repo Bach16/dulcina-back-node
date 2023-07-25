@@ -28,3 +28,32 @@ exports.createProducts = catchAsync(async (req, res, next) => {
     newProduct,
   });
 });
+
+exports.updateProduct = catchAsync(async (req, res, next) => {
+  const { product } = req;
+  const { name, image, price, highlight_date } = req.body;
+
+  await product.update({
+    name,
+    image,
+    price,
+    highlight_date,
+  });
+
+  res.status(200).json({
+    message: "Product updated",
+    product,
+  });
+});
+
+exports.deleteProduct = catchAsync(async (req, res, next) => {
+  const { product } = req;
+
+  await product.update({
+    status: "inactive",
+  });
+
+  res.status(200).json({
+    message: "Product deleted",
+  });
+});
