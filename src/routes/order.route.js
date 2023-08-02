@@ -1,22 +1,17 @@
-const express = require('express');
+const express = require("express");
+const ordersController = require("../controllers/orders.controller");
+const { validProduct } = require("../middlewares/validProduct.middleware");
 
+const productRouter = express.Router();
 
-const orderRouter = express.Router()
+productRouter
+  .route("/:id")
+  .patch(ordersController.updateOrder)
+  .delete(ordersController.deleteProduct);
 
-orderRouter.get("/", async (req,res) => {
-    try {
-        res.status(200).send("orders")
-    } catch (error) {
-        res.status(400).send({error:error})
-    }
-}) 
+productRouter
+  .route("/")
+  .post(ordersController.createOrder)
+  .get(ordersController.findOrders);
 
-orderRouter.post("/", async (req,res) => {
-    try {
-        res.status(200).send("order")
-    } catch (error) {
-        res.status(400).send({error:error})
-    }
-}) 
-
-module.exports = orderRouter;
+module.exports = productRouter;
